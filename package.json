@@ -18,5 +18,8 @@
     "eslint": "^5.16.0",
     "mocha": "^6.1.4",
     "tempdir-yaml": "^0.2.1"
-  }
+  },
+  "files": [
+    "index.js"
+  ]
 }
