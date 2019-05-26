@@ -1,6 +1,6 @@
 {
   "name": "assert-json",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "An enhanced assert to diff object with a JSON file. Report line number.",
   "author": "eight04 <eight04@gmail.com>",
   "license": "MIT",
