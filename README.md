@@ -63,6 +63,10 @@ Like `equal` but the JSON is read from a file. The filename will be included in 
 Changelog
 ---------
 
+* 0.1.2 (May 26, 2019)
+
+  - Fix: handle undefined actual.
+
 * 0.1.1 (May 26, 2019)
 
   - Fix: remove unused files in the package.
