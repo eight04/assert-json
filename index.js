@@ -64,12 +64,17 @@ function diffJSON(actual, expected, filename) {
 }
 
 function getFrame(lines, i) {
-  return lines.slice(i - 5, i + 5).join("\n");
+  return lines.slice(i - 5, i + 5).join("\n").trim();
 }
 
 function equal(actual, expected, message = "Actual value doesn't match JSON") {
+  if (actual === undefined) {
+    fail({
+      message: "Actual value is undefined",
+      stackFn: equal
+    });
+  }
   const result = diffJSON(actual, expected);
-  // console.log(result);
   if (result) {
     fail({
       diff: result,
@@ -81,7 +86,11 @@ function equal(actual, expected, message = "Actual value doesn't match JSON") {
 
 function fail({diff, message, stackFn}) {
   try {
-    assert.equal(diff.actual, diff.expected, message);
+    if (diff) {
+      assert.equal(diff.actual, diff.expected, message);
+    } else {
+      throw new TypeError(message);
+    }
   } catch (err) {
     Error.captureStackTrace(err, stackFn);
     throw err;
@@ -89,6 +98,12 @@ function fail({diff, message, stackFn}) {
 }
 
 function equalFile(actual, expectedFilename, message = "Actual value doesn't match JSON file") {
+  if (actual === undefined) {
+    fail({
+      message: "Actual value is undefined",
+      stackFn: equalFile
+    });
+  }
   const expected = fs.readFileSync(expectedFilename, "utf8");
   const result = diffJSON(actual, expected, expectedFilename);
   if (result) {

@@ -29,6 +29,13 @@ describe("assertJSON", () => {
       );
     })
   );
+  
+  it("handle undefined actual", () => {
+    assert.throws(
+      () => assertJSON.equal(undefined, "{}"),
+      /actual value is undefined/i
+    );
+  });
 });
 
 describe("deepReplace", () => {
