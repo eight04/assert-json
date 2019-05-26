@@ -13,7 +13,7 @@ npm install -D assert-json
 Usage
 -----
 
-```
+```js
 const assertJSON = require("assert-json");
 
 it("my test", () => {

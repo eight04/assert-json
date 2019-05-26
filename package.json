@@ -14,6 +14,7 @@
     "postversion": "git push --follow-tags && npm publish"
   },
   "devDependencies": {
+    "c8": "^5.0.1",
     "eslint": "^5.16.0",
     "mocha": "^6.1.4",
     "tempdir-yaml": "^0.2.1"
