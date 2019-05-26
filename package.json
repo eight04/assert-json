@@ -5,8 +5,8 @@
   "author": "eight04 <eight04@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "ordered-object": "^0.2.1",
-    "parse-json": "^4.0.0"
+    "lines-and-columns": "^1.1.6",
+    "ordered-object": "^0.2.1"
   },
   "scripts": {
     "test": "eslint \"**/*.js\" --cache && c8 --reporter=lcov mocha",

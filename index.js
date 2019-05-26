@@ -3,7 +3,36 @@ const path = require("path");
 const fs = require("fs");
 
 const orderedObject = require("ordered-object");
-const parseJSON = require("parse-json");
+const {default: LinesAndColumns} = require("lines-and-columns");
+
+function parseJSON(json, filename) {
+  let pos;
+  try {
+    return JSON.parse(json);
+  } catch (err) {
+    err.stack = decoPosition(err.stack);
+    err.message = decoPosition(err.message);
+    if (filename) {
+      filename = cleanPath(filename);
+      err.stack = decoFilename(err.stack);
+      err.message = decoFilename(err.message);
+    }
+    throw err;
+  }
+  
+  function decoFilename(message) {
+    return message.replace(/in JSON/, `in ${filename}`);
+  }
+  
+  function decoPosition(message) {
+    return message.replace(/position\s+(\d+)/, (m, index) => {
+      if (!pos) {
+        pos = new LinesAndColumns(json).locationForIndex(Number(index));
+      }
+      return `line ${pos.line + 1} col ${pos.column + 1}`;
+    });
+  }
+}
 
 function cleanPath(file) {
   file = path.resolve(file);
@@ -43,7 +72,7 @@ function deepReplace(o, props) {
 
 function diffJSON(actual, expected, filename) {
   // normalize JSON text
-  const expectedObject = orderedObject.wrap(parseJSON(expected, null, filename));
+  const expectedObject = orderedObject.wrap(parseJSON(expected, filename));
   const expectedText = JSON.stringify(expectedObject, null, 2);
   actual = deepReplace(expectedObject, actual);
   const actualText = JSON.stringify(actual, null, 2);
@@ -117,4 +146,4 @@ function equalFile(actual, expectedFilename, message = "Actual value doesn't mat
   }
 }
 
-module.exports = {equal, equalFile, deepReplace, diffText};
+module.exports = {equal, equalFile, deepReplace, diffText, parseJSON};

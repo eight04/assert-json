@@ -112,3 +112,19 @@ describe("diffText", () => {
     assert.equal(result.expected, " 1\n 3\n 3");
   });
 });
+
+describe("parseJSON", () => {
+  it("convert index to location", () => {
+    assert.throws(
+      () => assertJSON.parseJSON('{"a": 1,}'),
+      /line 1 col 9/
+    );
+  });
+  
+  it("customize filename", () => {
+    assert.throws(
+      () => assertJSON.parseJSON('{"a": 1,}', "test.json"),
+      /in test.json/
+    );
+  }); 
+});
