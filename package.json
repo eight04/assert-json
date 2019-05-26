@@ -1,0 +1,21 @@
+{
+  "name": "assert-json",
+  "version": "0.0.0",
+  "description": "An enhanced assert to diff object with a JSON file. Report line number.",
+  "author": "eight04 <eight04@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ordered-object": "^0.2.1",
+    "parse-json": "^4.0.0"
+  },
+  "scripts": {
+    "test": "eslint \"**/*.js\" --cache && c8 --reporter=lcov mocha",
+    "preversion": "npm test",
+    "postversion": "git push --follow-tags && npm publish"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "mocha": "^6.1.4",
+    "tempdir-yaml": "^0.2.1"
+  }
+}
