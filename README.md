@@ -65,6 +65,10 @@ Like `equal` but the JSON is read from a file. The filename will be included in 
 Changelog
 ---------
 
+* 0.1.3 (May 26, 2019)
+
+  - Fix: broken when the diff is near the top/end.
+
 * 0.1.2 (May 26, 2019)
 
   - Fix: handle undefined actual.
