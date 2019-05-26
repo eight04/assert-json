@@ -47,13 +47,15 @@ function diffJSON(actual, expected, filename) {
   const expectedText = JSON.stringify(expectedObject, null, 2);
   actual = deepReplace(expectedObject, actual);
   const actualText = JSON.stringify(actual, null, 2);
-  
-  // diff
+  return diffText(actualText, expectedText);
+}
+
+function diffText(actualText, expectedText) {
   const actualLines = actualText.split("\n");
   const expectedLines = expectedText.split("\n");
-  actualLines.length = expectedLines.length = Math.max(actualLines.length, expectedLines.length);
-  for (let i = 0; i < actualLines.length; i++) {
-    if (actualLines[i] !== expectedLines[i]) {
+  const maxLength = Math.max(actualLines.length, expectedLines.length);
+  for (let i = 0; i < maxLength; i++) {
+    if (actualLines[i] !== expectedLines[i]) { // FIXME: prevent out of index?
       return {
         line: i,
         actual: getFrame(actualLines, i),
@@ -64,7 +66,7 @@ function diffJSON(actual, expected, filename) {
 }
 
 function getFrame(lines, i) {
-  return lines.slice(i - 5, i + 5).join("\n").trim();
+  return lines.slice(Math.max(i - 5, 0), Math.min(i + 5, lines.length)).join("\n");
 }
 
 function equal(actual, expected, message = "Actual value doesn't match JSON") {
@@ -115,4 +117,4 @@ function equalFile(actual, expectedFilename, message = "Actual value doesn't mat
   }
 }
 
-module.exports = {equal, equalFile, deepReplace};
+module.exports = {equal, equalFile, deepReplace, diffText};

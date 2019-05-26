@@ -80,3 +80,35 @@ describe("deepReplace", () => {
     assert.deepStrictEqual(o2, [{a: 3}]);
   });
 });
+
+describe("diffText", () => {
+  it("get the frame correctly when the screen range is out of index", () => {
+    const result = assertJSON.diffText(
+      "1\n3\n3\n4\n5\n6\n7",
+      "1\n2\n3\n4\n5\n6\n7"
+    );
+    assert(result);
+    assert.equal(result.actual, "1\n3\n3\n4\n5\n6");
+    assert.equal(result.expected, "1\n2\n3\n4\n5\n6");
+  });
+  
+  it("work when two files have different line numbers", () => {
+    const result = assertJSON.diffText(
+      "1\n2\n3\n4\n5\n7\n7",
+      "1\n2\n3\n4\n5\n6\n7\n8"
+    );
+    assert(result);
+    assert.equal(result.actual, "1\n2\n3\n4\n5\n7\n7");
+    assert.equal(result.expected, "1\n2\n3\n4\n5\n6\n7\n8");
+  });
+  
+  it("don't trim whitespaces", () => {
+    const result = assertJSON.diffText(
+      " 1\n 2\n 3",
+      " 1\n 3\n 3"
+    );
+    assert(result);
+    assert.equal(result.actual, " 1\n 2\n 3");
+    assert.equal(result.expected, " 1\n 3\n 3");
+  });
+});
