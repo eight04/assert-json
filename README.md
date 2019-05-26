@@ -6,6 +6,8 @@ assert-json
 
 An enhanced assert to diff object with a JSON file. Report line number. It should be useful to spot the error from a large JSON.
 
+![screenshot](https://i.imgur.com/pYmrFBj.png)
+
 Installation
 ------------
 
