@@ -6,7 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "lines-and-columns": "^1.1.6",
-    "ordered-object": "^0.2.1"
+    "ordered-object": "^0.2.3"
   },
   "scripts": {
     "test": "eslint \"**/*.js\" --cache && c8 --reporter=lcov mocha",

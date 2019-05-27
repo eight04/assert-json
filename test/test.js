@@ -79,6 +79,12 @@ describe("deepReplace", () => {
     assert.equal(o3, o2);
     assert.deepStrictEqual(o2, [{a: 3}]);
   });
+  
+  it("handle null property", () => {
+    const o = {a: null};
+    const o2 = {a: null};
+    deepReplace(o, o2);
+  });
 });
 
 describe("diffText", () => {

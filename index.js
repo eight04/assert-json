@@ -43,11 +43,12 @@ function cleanPath(file) {
   return relFile;
 }
 
+function isObject(o) {
+  return o && typeof o === "object" && !Array.isArray(o);
+}
+
 function deepReplace(o, props) {
-  if (
-    typeof o === "object" && !Array.isArray(o) &&
-    typeof props === "object" && !Array.isArray(props)
-  ) {
+  if (isObject(o) && isObject(props)) {
     const keys = new Set(Object.keys(o).concat(Object.keys(props)));
     for (const k of keys) {
       if (o.hasOwnProperty(k) && props.hasOwnProperty(k)) {
