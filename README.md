@@ -65,6 +65,10 @@ Like `equal` but the JSON is read from a file. The filename will be included in 
 Changelog
 ---------
 
+* 0.1.5 (May 27, 2019)
+
+  - Fix: `null` object property throws.
+
 * 0.1.4 (May 26, 2019)
 
   - Add: better JSON parse error.
